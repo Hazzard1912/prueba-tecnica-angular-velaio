@@ -1,0 +1,26 @@
+<div class="task-card">
+  <h3>
+    <span [ngClass]="{'task-completed': task.is_completed, 'task-pending': !task.is_completed}">
+      {{ task.is_completed ? '✔️' : '❌' }} <!-- Puedes usar emojis o cualquier icono -->
+    </span>
+    {{ task.name }} - {{ task.deadline | date }}
+  </h3>
+  <h4>Personas Asociadas:</h4>
+  <ul>
+    <li *ngFor="let person of task.persons">
+      <strong>{{ person.full_name }} ({{ person.age }} años)</strong>
+      <p>Habilidades: {{ person.skills.join(', ') }}</p>
+    </li>
+  </ul>
+  <div class="task-buttons">
+    <button *ngIf="!task.is_completed" (click)="completeTask(task._id)" title="Completar tarea">
+      <i class="fas fa-check"></i>
+    </button>
+    <button (click)="editTask()" title="Editar tarea">
+      <i class="fas fa-edit"></i>
+    </button>
+    <button (click)="deleteTask(task._id)" title="Eliminar tarea">
+      <i class="fas fa-trash"></i>
+    </button>
+  </div>
+</div>

@@ -1,0 +1,91 @@
+<div class="task-form-container">
+    <h2>{{ isEditing ? 'Editar Tarea' : 'Crear Tarea' }}</h2>
+    <form [formGroup]="taskForm" (ngSubmit)="saveTask()">
+        <div class="form-group">
+            <label for="name">Nombre</label>
+            <input id="name" formControlName="name" type="text" class="form-control" />
+            <div *ngIf="taskForm.get('name')?.invalid && taskForm.get('name')?.touched" class="error">
+                <div *ngIf="taskForm.get('name')?.errors?.['required']">El nombre es requerido.</div>
+                <div *ngIf="taskForm.get('name')?.errors?.['minlength']">El nombre debe tener al menos 5 caracteres.
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="deadline">Fecha Límite</label>
+            <input id="deadline" formControlName="deadline" type="date" class="form-control" />
+            <div *ngIf="taskForm.get('deadline')?.invalid && taskForm.get('deadline')?.touched" class="error">
+                La fecha límite es requerida.
+            </div>
+        </div>
+
+        <div formArrayName="persons">
+            <h3>Personas</h3>
+            <div *ngFor="let person of persons.controls; let i = index" [formGroupName]="i" class="person-group">
+                <h4>Persona {{ i + 1 }} <button type="button" (click)="removePerson(i)" class="remove-btn"
+                        style="margin-left: 10px;">
+                        <i class="fas fa-trash">
+                        </i>
+                    </button></h4>
+                <div class="form-group">
+                    <label for="fullName-{{ i }}">Nombre Completo</label>
+                    <input id="fullName-{{ i }}" formControlName="full_name" type="text" class="form-control" />
+                    <div *ngIf="person.get('fullName')?.invalid && person.get('fullName')?.touched" class="error">
+                        El nombre completo es requerido.
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="age-{{ i }}">Edad</label>
+                    <input id="age-{{ i }}" formControlName="age" type="number" class="form-control" />
+                    <div *ngIf="person.get('age')?.invalid && person.get('age')?.touched" class="error">
+                        <div *ngIf="person.get('age')?.errors?.['required']">La edad es requerida.</div>
+                        <div *ngIf="person.get('age')?.errors?.['min']">Debe ser mayor de edad.</div>
+                    </div>
+                </div>
+
+                <div formArrayName="skills">
+                    <h4>Habilidades</h4>
+                    <div *ngFor="let skill of getSkills(person).controls; let j = index" class="skill-group">
+                        <div>
+                            <input [formControlName]="j" type="text" class="form-control" />
+                            <button type="button" (click)="removeSkill(i, j)" class="remove-btn">
+                                <i class="fas fa-trash">
+                                </i>
+                            </button>
+                        </div>
+                        <div *ngIf="skill.invalid">
+                            <small *ngIf="skill.errors?.['required']" class="error">
+                                El campo no puede estar vacío.
+                            </small>
+                        </div>
+                    </div>
+                    <button type="button" (click)="addSkill(i)" class="add-btn">
+                        <i class="fas fa-plus"></i>
+                        Agregar
+                    </button>
+                    <div *ngIf="person.get('skills')?.errors?.['minLengthArray']" class="error">
+                        Debe haber al menos una habilidad.
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="taskForm.get('persons')?.errors?.['minLengthArray']" class="error">
+                Debe haber al menos una persona.
+            </div>
+            <div *ngIf="taskForm.get('persons')?.errors?.['duplicateNames']" class="error">
+                No se permiten nombres duplicados.
+            </div>
+            <button type="button" (click)="addPerson()" class="add-btn">
+                <i class="fas fa-plus"></i>
+                Agregar Persona
+            </button>
+        </div>
+
+        <div class="form-group-completed">
+            <label for="isCompleted">Completada</label>
+            <input id="isCompleted" formControlName="is_completed" type="checkbox" class="form-control" />
+        </div>
+
+        <button type="submit" [disabled]="taskForm.invalid" class="submit-btn">{{ isEditing ? 'Actualizar' : 'Guardar' }}</button>
+    </form>
+</div>

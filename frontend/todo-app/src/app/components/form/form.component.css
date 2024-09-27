@@ -1,0 +1,82 @@
+.task-form-container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.add-btn {
+    padding: 10px 15px;
+    background-color: #20c45f;
+    border-radius: 5px;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+.add-btn {
+    background-color: #1aa84b;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-group-completed {
+    display: flex;
+    align-items: center;
+    margin: 15px 0;
+}
+
+.form-control {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+  margin: 5px 0;
+}
+
+.person-group {
+  border: 1px solid #ccc;
+  padding: 15px;
+  margin-bottom: 15px;
+}
+
+.skill-group {
+  margin-bottom: 10px;
+}
+
+.skill-group div {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+}
+
+.remove-btn {
+    background-color: #f44336;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.remove-btn:hover {
+    background-color: #d32f2f;
+}
+
+.submit-btn {
+    padding: 10px 15px;
+    border-radius: 5px;
+    background-color: #20c45f;
+    border: none;
+    cursor: pointer;
+}

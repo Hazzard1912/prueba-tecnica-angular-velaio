@@ -1,0 +1,27 @@
+<div class="task-list-container">
+  <h2>Lista de Tareas</h2>
+
+  <div class="task-filter">
+    <div class="filter-buttons">
+      <button (click)="setFilter('all')" [ngClass]="{'active': filter === 'all'}">Todas</button>
+      <button (click)="setFilter('completed')" [ngClass]="{'active': filter === 'completed'}">Completadas</button>
+      <button (click)="setFilter('pending')" [ngClass]="{'active': filter === 'pending'}">Pendientes</button>
+    </div>
+  </div>
+
+  <div *ngIf="tasks$ | async as tasks">
+    <div *ngIf="filteredTasks.length > 0; else noTasks" class="task-list">
+      <div *ngFor="let task of filteredTasks">
+        <app-task [task]="task"></app-task>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #noTasks>
+    <p>No hay tareas para mostrar.</p>
+  </ng-template>
+</div>
+
+<a class="create-task-button" routerLink="/tasks/create">
+  <i class="fas fa-plus"></i> Crear tarea
+</a>
